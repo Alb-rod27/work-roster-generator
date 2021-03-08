@@ -31,13 +31,12 @@ function start() {
     },
  ])
 .then(function (data) {
-    //console.log(res);
     const managerName = data.managerName
     const managerId = data.managerId
     const managerEmail = data.managerEmail
     const managerOfficeNumber = data.managerOfficeNumber
     const manager = new Manager(managerName, managerId, managerEmail, managerOfficeNumber)
-    teamArray.push(manager)
+    members.push(manager)
     addTeamMembers();
   });
 }
@@ -69,6 +68,45 @@ function addTeamMembers() {
     });
 }
 
+function addEngineer() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: "Please enter Engineer's name."
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: "Please enter Enigeer's name."
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: "Please enter Engineer's email."
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: "Please enter Engineer's GitHub username."
+        }
+    ])
+    .then(function (data) {
+        const name = data.name
+        const id =  data.id
+        const email = data.email
+        const github = data.github
+        const member = new Engineer(name, id, email, github)
+        members.push(member)
+        addMembers()
+    });
+}
+
+
+
+
+
+start();
 //init();
 
     
