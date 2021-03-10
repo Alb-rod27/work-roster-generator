@@ -59,7 +59,7 @@ function addTeamMembers() {
                 addIntern();
             break;
 
-            case 'No, completed':
+            case 'All Done!':
                 compileTeam();
                 console.log(members)
             break;
@@ -162,14 +162,14 @@ function compileTeam(){
 htmlArray.push(htmlBeginning);
 
 for (let i = 0; i < members.length; i++) {
-    let object = `
+  let object = `
     <div class="col-4 d-flex justify-content-center">
-    <div class="card" style="width: 40rem;">
-    <div class="card-header text-center bold">
-    <h4 class="bg-primary text-white fs-3 fw-bold text-center">
-        ${members[i].name}
-    </h4>
-    <h6>
+      <div class="card" style="width: 40rem;">
+        <div class="card-header text-center bold">
+          <h4 class="bg-primary text-white fs-3 fw-bold text-center">
+            ${members[i].name}
+          </h4>
+     <h6>
      ${members[i].getRole()} <span>`
 
 if(members[i].getRole() === "Manager") {
@@ -186,15 +186,15 @@ if(members[i].getRole() === "Manager") {
 }
 
 object += `
-</h6>
-</div>
+      </h6>
+    </div>
 <ul class="list-group-flush">
   <li class="list-group-item">ID: ${members[i].id}</li>
   <li class="list-group-item">Email: <a href="mailto:${members[i].email}">${members[i].email}</a><li>
 `
 if (members[i].managerOfficeNumber) {
     object += `
-       <li class="list-group-item">Office Number: ${members[i].managerOfficeNumber}</li>
+    <li class="list-group-item">Office Number: ${members[i].managerOfficeNumber}</li>
     `
 }
 if (members[i].github) {
