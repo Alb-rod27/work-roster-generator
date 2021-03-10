@@ -182,8 +182,52 @@ if(members[i].getRole() === "Manager") {
     object += `
     <i class="fas fa-user-graduate"></i> </span>`
 }
+
+object +=`
+</h6>
+</div>
+<ul class="list-group-flush">
+  <li class="list-group-item">ID: ${members[i].id}</li>
+  <li class="list-group-item">Email: <a href="mailto:${members[i].email}">${members[i].email}</a><li>
+`
+
+if (members[i].officeNum) {
+    object += `
+       <li class="list-group-item">Office Number: ${members[i].officeNum}</li>
+        `
+}
+if (members[i].github) {
+object += `
+  <li class="list-group-item">GitHub: <a href="https://github.com/${members[i].github}">${members[i].github}</a></li>
+`
+}
+if (members[i].school) {
+   object += `
+      <li class="list-group-item">Current School: ${members[i].school}</li>
+        `
+
+}
+
+object += `
+    </ul>
+      </div>
+    </div>
+  </div>
+`
+htmlArray.push(object)
+}
+
+const htmlEnd = `
+  </div>
 </body>
 </html>
+`
+
+htmlArray.push(htmlEnd);
+
+fs.writeFile(`./dist/index.html`, htmlArray.join(""), function (err) {
+    
+})
 }
 
 
@@ -192,5 +236,3 @@ if(members[i].getRole() === "Manager") {
 
 start();
 //init();
-
-    
