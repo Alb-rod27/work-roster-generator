@@ -45,7 +45,7 @@ function addTeamMembers() {
         {
             type: 'list',
             message: 'Would you like to add additional team members?',
-            choices: ['Add Engineer', 'Add Intern', 'No, completed'],
+            choices: ['Add Engineer', 'Add Intern', 'All Done!'],
             name: 'addMemberData'
         }
     ])
@@ -78,7 +78,7 @@ function addEngineer() {
         {
             type: 'input',
             name: 'id',
-            message: "Please enter Enigeer's name."
+            message: "Please enter Engineer's Id."
         },
         {
             type: 'input',
@@ -98,7 +98,7 @@ function addEngineer() {
         const github = data.github
         const member = new Engineer(name, id, email, github)
         members.push(member)
-        addMembers()
+        addTeamMembers()
     });
 };
 
@@ -133,13 +133,14 @@ function addIntern() {
         const school = data.school
         const member = new Intern(name, id, email, school)
         members.push(member)
-        addMembers()
+        addTeamMembers()
     });
 };
 
+//html 
 function compileTeam(){
     const htmlArray = []
-    const generatePage = `
+    const htmlBeginning = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,7 +154,7 @@ function compileTeam(){
 </head>
 <body>
     <nav class="navbar navbar-dark">
-      <span class="w-100 text-center" style="font-size: 40px">Work Roster</span>
+      <span class="w-100 text-center bg-color:red;" style="font-size: 40px">Work Roster</span>
     </nav>
     <br/>
     <div class="row justify-content-around" style="grid-row-gap: 25px">
@@ -162,6 +163,7 @@ htmlArray.push(htmlBeginning);
 
 for (let i = 0; i < members.length; i++) {
     let object = `
+    <div class="col-4 d-flex justify-content-center">
     <div class="card" style="width: 40rem;">
     <div class="card-header text-center bold">
     <h4 class="bg-primary text-white fs-3 fw-bold text-center">
@@ -178,23 +180,22 @@ if(members[i].getRole() === "Manager") {
     object += `
     <i class="fas fa-glasses"></i> </span>
     `
-} else {
+} else if (members[i].getRole() === "Intern") {
     object += `
     <i class="fas fa-user-graduate"></i> </span>`
 }
 
-object +=`
+object += `
 </h6>
 </div>
 <ul class="list-group-flush">
   <li class="list-group-item">ID: ${members[i].id}</li>
   <li class="list-group-item">Email: <a href="mailto:${members[i].email}">${members[i].email}</a><li>
 `
-
 if (members[i].officeNum) {
     object += `
        <li class="list-group-item">Office Number: ${members[i].officeNum}</li>
-        `
+    `
 }
 if (members[i].github) {
 object += `
@@ -204,10 +205,8 @@ object += `
 if (members[i].school) {
    object += `
       <li class="list-group-item">Current School: ${members[i].school}</li>
-        `
-
+    `
 }
-
 object += `
     </ul>
       </div>
@@ -226,13 +225,9 @@ const htmlEnd = `
 htmlArray.push(htmlEnd);
 
 fs.writeFile(`./dist/index.html`, htmlArray.join(""), function (err) {
-    
-})
+
+ })
 }
 
-
-
-
-
 start();
-//init();
+
