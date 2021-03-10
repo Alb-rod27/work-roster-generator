@@ -192,16 +192,16 @@ object += `
   <li class="list-group-item">ID: ${members[i].id}</li>
   <li class="list-group-item">Email: <a href="mailto:${members[i].email}">${members[i].email}</a><li>
 `
-if (members[i].officeNum) {
+if (members[i].managerOfficeNumber) {
     object += `
-       <li class="list-group-item">Office Number: ${members[i].officeNum}</li>
+       <li class="list-group-item">Office Number: ${members[i].managerOfficeNumber}</li>
     `
 }
 if (members[i].github) {
 object += `
   <li class="list-group-item">GitHub: <a href="https://github.com/${members[i].github}">${members[i].github}</a></li>
 `
-}
+}  
 if (members[i].school) {
    object += `
       <li class="list-group-item">Current School: ${members[i].school}</li>
