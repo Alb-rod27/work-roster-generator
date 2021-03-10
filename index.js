@@ -1,7 +1,6 @@
 const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
-const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
@@ -35,8 +34,8 @@ function start() {
     const managerId = data.managerId
     const managerEmail = data.managerEmail
     const managerOfficeNumber = data.managerOfficeNumber
-    const manager = new Manager(managerName, managerId, managerEmail, managerOfficeNumber)
-    members.push(manager)
+    const member = new Manager(managerName, managerId, managerEmail, managerOfficeNumber)
+    members.push(member)
     addTeamMembers();
   });
 }
@@ -68,6 +67,7 @@ function addTeamMembers() {
     });
 }
 
+// Engineer section
 function addEngineer() {
     inquirer.prompt([
         {
@@ -100,6 +100,90 @@ function addEngineer() {
         members.push(member)
         addMembers()
     });
+};
+
+// Intern section
+function addIntern() {
+    inquirer.prompt([
+        {   
+            type: 'text',
+            name: 'name',
+            message: "Intern's name:"
+        },
+        {
+            type: 'number',
+            name: 'id',
+            message: "Enter Intern's id number:"
+        },
+        {
+            type: 'text',
+            name: 'email',
+            message: "Intern's email address:"
+        },
+        {
+            type: 'text',
+            name: 'school',
+            message: "Intern's school:"
+        }
+    ])
+    .then(function (data) {
+        const name = data.name
+        const id = data.id
+        const email = data.email
+        const school = data.school
+        const member = new Intern(name, id, email, school)
+        members.push(member)
+        addMembers()
+    });
+};
+
+function compileTeam(){
+    const htmlArray = []
+    const generatePage = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <title>Work-Roster-Generator</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+      <span class="w-100 text-center" style="font-size: 40px">Work Roster</span>
+    </nav>
+    <br/>
+    <div class="row justify-content-around" style="grid-row-gap: 25px">
+    `
+htmlArray.push(htmlBeginning);
+
+for (let i = 0; i < members.length; i++) {
+    let object = `
+    <div class="card" style="width: 40rem;">
+    <div class="card-header text-center bold">
+    <h4 class="bg-primary text-white fs-3 fw-bold text-center">
+        ${members[i].name}
+    </h4>
+    <h6>
+     ${members[i].getRole()} <span>`
+
+if(members[i].getRole() === "Manager") {
+    object += `
+    <i class="fas fa-mug-hot"></i> </span>
+    `
+} else if(members[i].getRole() === "Engineer") {
+    object += `
+    <i class="fas fa-glasses"></i> </span>
+    `
+} else {
+    object += `
+    <i class="fas fa-user-graduate"></i> </span>`
+}
+</body>
+</html>
 }
 
 
