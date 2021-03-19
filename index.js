@@ -25,7 +25,7 @@ function start() {
     },
     {
         type: 'input',
-        name: 'managerOfficeNumber',
+        name: 'officeNum',
         message: 'Please enter managers office number.'
     },
  ])
@@ -33,8 +33,8 @@ function start() {
     const managerName = data.managerName
     const managerId = data.managerId
     const managerEmail = data.managerEmail
-    const managerOfficeNumber = data.managerOfficeNumber
-    const member = new Manager(managerName, managerId, managerEmail, managerOfficeNumber)
+    const officeNum = data.officeNum
+    const member = new Manager(managerName, managerId, managerEmail, officeNum)
     members.push(member)
     addTeamMembers();
   });
@@ -157,7 +157,7 @@ function compileTeam(){
       <span class="w-100 text-center bg-color:red;" style="font-size: 40px">Work Roster</span>
     </nav>
     <br/>
-    <div class="row justify-content-around" style="grid-row-gap: 25px">
+    <div class="row justify-content" style="grid-row-gap: 25px">
     `
 htmlArray.push(htmlBeginning);
 
@@ -190,11 +190,11 @@ object += `
     </div>
 <ul class="list-group-flush">
   <li class="list-group-item">ID: ${members[i].id}</li>
-  <li class="list-group-item">Email: <a href="mailto:${members[i].email}">${members[i].email}</a><li>
+  <li class="list-group-item">Email: <a href="mailto:${members[i].email}">${members[i].email}</a></li>
 `
-if (members[i].managerOfficeNumber) {
+if (members[i].officeNum) {
     object += `
-    <li class="list-group-item">Office Number: ${members[i].managerOfficeNumber}</li>
+    <li class="list-group-item">Office Number: ${members[i].officeNum}</li>
     `
 }
 if (members[i].github) {
