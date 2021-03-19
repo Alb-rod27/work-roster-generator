@@ -23,7 +23,7 @@ test ('returns email', () => {
 });
 
 test ('returns role', () => {
-    expect(engineer.getRole()).toBe('engineer');
+    expect(engineer.getRole()).toBe('Engineer');
 });
 
 test ('returns github user', () => {

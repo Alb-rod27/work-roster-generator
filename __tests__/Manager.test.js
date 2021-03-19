@@ -1,13 +1,13 @@
 const { TestScheduler } = require('jest');
 const Manager = require('../lib/Manager');
 
-const manager = new Manager('name', '1', 'test@test.com', '888-888-8888')
+const manager = new Manager()
 
-test('creates manager object', () => {
+test('creates manager object', ('name', '1', 'test@test.com'), () => {
     expect(manager.name).toBe('name');
     expect(manager.id).toBe('1');
     expect(manager.email).toBe('test@test.com');
-    expect(manager.officenumber).toBe('888-888-8888');
+    expect(manager.officeNum).toEqual(expect.any(Number));
 });
 
 test('returns name', () => {
@@ -27,5 +27,5 @@ test('returns role', () => {
 })
 
 test('returns office number', () => {
-    expect(manager.getOfficeNumber()).toBe('888-888-8888')
+    expect(manager.getOfficeNum()).toEqual(expect.any(Number))
 })
